@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swap & Bridge UI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Mobile Swap & Bridge UI</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,16 +14,24 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
     }
 
     body {
       min-height: 100vh;
-      background: #0b0614;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(124, 58, 237, 0.2), transparent 35%),
+        #0b0614;
       font-family: "Instrument Sans", sans-serif;
-      color: white;
-      display: flex;
-      justify-content: center;
-      padding: 44px 16px;
+      color: #fff;
+      padding: 0;
     }
 
     button,
@@ -31,56 +39,75 @@
       font-family: inherit;
     }
 
+    button {
+      user-select: none;
+    }
+
     .app {
       width: 100%;
-      max-width: 430px;
+      max-width: none;
+      min-height: 100vh;
+      padding: 34px 16px 24px;
+    }
+
+    @media (min-width: 600px) {
+      body {
+        display: flex;
+        justify-content: center;
+      }
+
+      .app {
+        max-width: 430px;
+      }
     }
 
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 56px;
+      margin-bottom: 64px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
+      min-width: 0;
     }
 
     .logo {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       position: relative;
+      flex-shrink: 0;
     }
 
     .logo::before {
       content: "";
       position: absolute;
-      width: 17px;
-      height: 17px;
-      background: linear-gradient(135deg, #d946ef, #8b5cf6);
-      border-radius: 4px;
-      transform: rotate(45deg);
+      width: 16px;
+      height: 16px;
       top: 2px;
       left: 2px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, #d946ef, #8b5cf6);
+      transform: rotate(45deg);
     }
 
     .logo::after {
       content: "";
       position: absolute;
-      width: 20px;
-      height: 36px;
-      background: linear-gradient(135deg, #c084fc, #7c3aed);
-      border-radius: 5px;
-      transform: rotate(45deg);
-      top: 13px;
+      width: 19px;
+      height: 35px;
+      top: 11px;
       left: 13px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #c084fc, #7c3aed);
+      transform: rotate(45deg);
     }
 
     .brand-name {
-      font-size: 32px;
+      font-size: clamp(25px, 7vw, 32px);
       font-weight: 900;
       letter-spacing: 0.02em;
       color: #b99cff;
@@ -89,7 +116,8 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 14px;
+      flex-shrink: 0;
     }
 
     .connect-top {
@@ -97,11 +125,19 @@
       border-radius: 999px;
       background: linear-gradient(180deg, #8750e6, #6d28d9);
       color: #fff;
-      padding: 15px 24px;
-      font-size: 16px;
+      padding: 13px 20px;
+      font-size: 15px;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        0 10px 24px rgba(109, 40, 217, 0.24);
+    }
+
+    .connect-top.connected {
+      background: #241339;
+      color: #b99cff;
+      border: 1px solid rgba(185, 156, 255, 0.2);
     }
 
     .menu {
@@ -115,7 +151,7 @@
     }
 
     .menu span {
-      width: 28px;
+      width: 26px;
       height: 3px;
       background: #e7ddff;
       border-radius: 20px;
@@ -124,40 +160,45 @@
     .apy-wrap {
       display: flex;
       justify-content: center;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
 
     .apy {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
       background: #221333;
-      border: 1px solid rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.05);
       border-radius: 999px;
-      padding: 12px 20px;
+      padding: 11px 18px;
       box-shadow: inset 0 0 24px rgba(168, 85, 247, 0.08);
       color: #d9c8ff;
-      font-size: 16px;
+      font-size: clamp(13px, 3.7vw, 16px);
       font-weight: 800;
+      white-space: nowrap;
     }
 
     .apy-icon {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: #2e1a45;
       display: grid;
       place-items: center;
       color: #b66cff;
       font-weight: 900;
+      flex-shrink: 0;
     }
 
     .card {
+      width: 100%;
       background: linear-gradient(180deg, #1a0f2b 0%, #120b20 100%);
-      border: 1px solid rgba(124, 58, 237, 0.12);
+      border: 1px solid rgba(124, 58, 237, 0.14);
       border-radius: 28px;
       padding: 24px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+      box-shadow:
+        0 24px 80px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.03);
     }
 
     .card-header {
@@ -168,38 +209,56 @@
     }
 
     .card-title {
-      font-size: 34px;
+      font-size: clamp(30px, 8.5vw, 34px);
       line-height: 1;
       font-weight: 900;
       letter-spacing: -0.04em;
+      color: #fff;
     }
 
     .settings {
       background: transparent;
       border: none;
       color: #fff;
-      font-size: 32px;
+      font-size: 30px;
       cursor: pointer;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
     }
 
     .chain-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 14px;
       position: relative;
       margin-bottom: 18px;
     }
 
+    .dropdown-wrap {
+      position: relative;
+      min-width: 0;
+    }
+
     .select-card {
-      min-height: 116px;
+      min-height: 112px;
       background: #26143d;
-      border: 1px solid rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.045);
       border-radius: 18px;
-      padding: 18px;
+      padding: 17px;
       text-align: left;
       cursor: pointer;
       position: relative;
       width: 100%;
+      transition: 0.15s ease;
+    }
+
+    .select-card:active,
+    .token-btn:active,
+    .main-cta:active,
+    .wallet-btn:active {
+      transform: scale(0.98);
     }
 
     .select-card:hover,
@@ -208,22 +267,22 @@
     }
 
     .label {
-      font-size: 20px;
+      font-size: clamp(17px, 4.7vw, 20px);
       color: #fff;
       font-weight: 900;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .select-content {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       min-width: 0;
     }
 
     .coin {
-      width: 54px;
-      height: 54px;
+      width: clamp(46px, 13vw, 54px);
+      height: clamp(46px, 13vw, 54px);
       border-radius: 50%;
       background: #313154;
       position: relative;
@@ -235,20 +294,21 @@
       position: absolute;
       right: -4px;
       bottom: 0;
-      width: 25px;
-      height: 25px;
+      width: clamp(21px, 6vw, 25px);
+      height: clamp(21px, 6vw, 25px);
       border-radius: 50%;
       background: #39345f;
       border: 4px solid #26143d;
     }
 
     .select-text {
-      font-size: 26px;
+      font-size: clamp(19px, 5.8vw, 26px);
       font-weight: 700;
       color: #d9cfee;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      min-width: 0;
     }
 
     .flip {
@@ -256,13 +316,13 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -35%);
-      width: 54px;
-      height: 54px;
+      width: clamp(48px, 13vw, 54px);
+      height: clamp(48px, 13vw, 54px);
       border-radius: 50%;
       background: #211231;
       border: 5px solid #180d29;
       color: #fff;
-      font-size: 28px;
+      font-size: clamp(23px, 6vw, 28px);
       cursor: pointer;
       z-index: 5;
       display: flex;
@@ -272,9 +332,9 @@
 
     .send-card {
       background: #26143d;
-      border: 1px solid rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.045);
       border-radius: 18px;
-      padding: 18px;
+      padding: 17px;
       margin-bottom: 22px;
     }
 
@@ -295,7 +355,7 @@
       border: none;
       outline: none;
       color: #fff;
-      font-size: 40px;
+      font-size: clamp(34px, 10vw, 40px);
       font-weight: 900;
       line-height: 1;
     }
@@ -306,32 +366,33 @@
 
     .usd-value {
       color: #d7c8ef;
-      font-size: 17px;
+      font-size: clamp(15px, 4vw, 17px);
       margin-top: 6px;
       font-weight: 600;
     }
 
     .cta-row {
       display: grid;
-      grid-template-columns: 1fr 74px;
-      gap: 18px;
+      grid-template-columns: 1fr clamp(64px, 17vw, 74px);
+      gap: 15px;
     }
 
     .main-cta {
-      height: 72px;
+      height: clamp(64px, 18vw, 72px);
       border-radius: 999px;
       border: none;
       background: linear-gradient(90deg, #7c3aed 0%, #6d28d9 100%);
       color: #fff;
-      font-size: 24px;
+      font-size: clamp(19px, 5.6vw, 24px);
       font-weight: 900;
       cursor: pointer;
       box-shadow: 0 12px 30px rgba(124, 58, 237, 0.28);
+      transition: 0.15s ease;
     }
 
     .wallet-btn {
-      width: 74px;
-      height: 72px;
+      width: clamp(64px, 17vw, 74px);
+      height: clamp(64px, 18vw, 72px);
       border-radius: 50%;
       border: none;
       background: #4b2b80;
@@ -340,10 +401,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .dropdown-wrap {
-      position: relative;
+      transition: 0.15s ease;
     }
 
     .dropdown {
@@ -388,39 +446,104 @@
       font-weight: 700;
     }
 
-    @media (max-width: 430px) {
-      body {
-        padding: 36px 14px;
+    @media (max-width: 390px) {
+      .app {
+        padding: 32px 14px 22px;
       }
 
-      .brand-name {
-        font-size: 28px;
+      .header {
+        margin-bottom: 56px;
       }
 
       .logo {
-        width: 42px;
-        height: 42px;
+        width: 39px;
+        height: 39px;
       }
 
       .connect-top {
-        padding: 13px 20px;
-        font-size: 15px;
+        padding: 12px 17px;
+        font-size: 14px;
       }
 
-      .card-title {
-        font-size: 31px;
+      .header-actions {
+        gap: 12px;
       }
 
-      .select-text {
-        font-size: 23px;
+      .menu span {
+        width: 24px;
+      }
+
+      .apy {
+        padding: 10px 15px;
+      }
+
+      .apy-icon {
+        width: 30px;
+        height: 30px;
+      }
+
+      .card {
+        border-radius: 26px;
+        padding: 20px;
       }
 
       .chain-row {
-        gap: 14px;
+        gap: 12px;
       }
 
       .select-card {
-        padding: 16px;
+        min-height: 108px;
+        padding: 15px;
+        border-radius: 17px;
+      }
+
+      .send-card {
+        padding: 15px;
+        border-radius: 17px;
+      }
+
+      .cta-row {
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 340px) {
+      .app {
+        padding: 28px 12px 18px;
+      }
+
+      .header {
+        margin-bottom: 48px;
+      }
+
+      .connect-top {
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+
+      .menu span {
+        width: 22px;
+        height: 2.5px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .chain-row {
+        gap: 10px;
+      }
+
+      .select-card {
+        padding: 13px;
+      }
+
+      .label {
+        margin-bottom: 20px;
+      }
+
+      .send-bottom {
+        gap: 12px;
       }
     }
   </style>
@@ -438,7 +561,7 @@
       <div class="header-actions">
         <button class="connect-top" id="topConnectBtn">Connect</button>
 
-        <button class="menu">
+        <button class="menu" aria-label="Open menu">
           <span></span>
           <span></span>
           <span></span>
@@ -456,7 +579,7 @@
     <section class="card">
       <div class="card-header">
         <h1 class="card-title">Swap & Bridge</h1>
-        <button class="settings">⚙</button>
+        <button class="settings" aria-label="Settings">⚙</button>
       </div>
 
       <div class="chain-row">
@@ -464,6 +587,7 @@
         <div class="dropdown-wrap">
           <button class="select-card" data-dropdown="fromDropdown">
             <div class="label">From</div>
+
             <div class="select-content">
               <div class="coin"></div>
               <div class="select-text" id="fromText">Select...</div>
@@ -473,11 +597,12 @@
           <div class="dropdown" id="fromDropdown"></div>
         </div>
 
-        <button class="flip" id="flipBtn">→</button>
+        <button class="flip" id="flipBtn" aria-label="Flip chains">→</button>
 
         <div class="dropdown-wrap">
           <button class="select-card" data-dropdown="toDropdown">
             <div class="label">To</div>
+
             <div class="select-content">
               <div class="coin"></div>
               <div class="select-text" id="toText">Select...</div>
@@ -505,7 +630,7 @@
       <div class="cta-row">
         <button class="main-cta" id="mainCta">Connect wallet</button>
 
-        <button class="wallet-btn">
+        <button class="wallet-btn" aria-label="Wallet">
           <svg width="32" height="26" viewBox="0 0 32 26" fill="none">
             <rect x="3" y="6" width="26" height="16" rx="4" stroke="white" stroke-width="3"/>
             <path d="M6 11H26" stroke="white" stroke-width="3" stroke-linecap="round"/>
@@ -551,7 +676,9 @@
           <small>${chain.symbol}</small>
         `;
 
-        btn.onclick = () => {
+        btn.onclick = event => {
+          event.stopPropagation();
+
           if (type === "from") {
             fromChain = chain;
             fromText.textContent = chain.name;
@@ -568,74 +695,10 @@
       });
     }
 
-    renderDropdown(fromDropdown, "from");
-    renderDropdown(toDropdown, "to");
-
     function closeDropdowns() {
       fromDropdown.classList.remove("show");
       toDropdown.classList.remove("show");
     }
-
-    document.querySelectorAll("[data-dropdown]").forEach(button => {
-      button.addEventListener("click", e => {
-        e.stopPropagation();
-
-        const dropdownId = button.dataset.dropdown;
-        const dropdown = document.getElementById(dropdownId);
-        const isOpen = dropdown.classList.contains("show");
-
-        closeDropdowns();
-
-        if (!isOpen) {
-          dropdown.classList.add("show");
-        }
-      });
-    });
-
-    document.addEventListener("click", closeDropdowns);
-
-    amountInput.addEventListener("input", e => {
-      let value = e.target.value.replace(/[^0-9.]/g, "");
-
-      const parts = value.split(".");
-      if (parts.length > 2) {
-        value = parts[0] + "." + parts.slice(1).join("");
-      }
-
-      e.target.value = value;
-
-      const number = parseFloat(value || "0");
-      usdValue.textContent = "$" + number.toFixed(2);
-
-      updateCta();
-    });
-
-    function connectWallet() {
-      connected = true;
-      topConnectBtn.textContent = "Connected";
-      mainCta.textContent = "Swap & Bridge";
-      updateCta();
-    }
-
-    topConnectBtn.addEventListener("click", connectWallet);
-    mainCta.addEventListener("click", () => {
-      if (!connected) {
-        connectWallet();
-      }
-    });
-
-    flipBtn.addEventListener("click", e => {
-      e.stopPropagation();
-
-      const oldFrom = fromChain;
-      fromChain = toChain;
-      toChain = oldFrom;
-
-      fromText.textContent = fromChain ? fromChain.name : "Select...";
-      toText.textContent = toChain ? toChain.name : "Select...";
-
-      updateCta();
-    });
 
     function updateCta() {
       const amount = parseFloat(amountInput.value || "0");
@@ -652,6 +715,71 @@
 
       mainCta.textContent = "Swap & Bridge";
     }
+
+    function connectWallet() {
+      connected = true;
+      topConnectBtn.textContent = "Connected";
+      topConnectBtn.classList.add("connected");
+      updateCta();
+    }
+
+    renderDropdown(fromDropdown, "from");
+    renderDropdown(toDropdown, "to");
+
+    document.querySelectorAll("[data-dropdown]").forEach(button => {
+      button.addEventListener("click", event => {
+        event.stopPropagation();
+
+        const dropdownId = button.dataset.dropdown;
+        const dropdown = document.getElementById(dropdownId);
+        const isOpen = dropdown.classList.contains("show");
+
+        closeDropdowns();
+
+        if (!isOpen) {
+          dropdown.classList.add("show");
+        }
+      });
+    });
+
+    document.addEventListener("click", closeDropdowns);
+
+    amountInput.addEventListener("input", event => {
+      let value = event.target.value.replace(/[^0-9.]/g, "");
+
+      const parts = value.split(".");
+      if (parts.length > 2) {
+        value = parts[0] + "." + parts.slice(1).join("");
+      }
+
+      event.target.value = value;
+
+      const number = parseFloat(value || "0");
+      usdValue.textContent = "$" + number.toFixed(2);
+
+      updateCta();
+    });
+
+    topConnectBtn.addEventListener("click", connectWallet);
+
+    mainCta.addEventListener("click", () => {
+      if (!connected) {
+        connectWallet();
+      }
+    });
+
+    flipBtn.addEventListener("click", event => {
+      event.stopPropagation();
+
+      const oldFrom = fromChain;
+      fromChain = toChain;
+      toChain = oldFrom;
+
+      fromText.textContent = fromChain ? fromChain.name : "Select...";
+      toText.textContent = toChain ? toChain.name : "Select...";
+
+      updateCta();
+    });
   </script>
 </body>
 </html>
